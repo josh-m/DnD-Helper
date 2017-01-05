@@ -1,0 +1,225 @@
+#:kivy 1.9.1
+
+<SmartScreenManager>
+	on_pre_leave: self.setPrev
+
+<MenuScreen>:
+	name: 'menu'
+
+	GridLayout:
+		cols:2
+		Button:
+			text: 'Random Encounters'
+			on_press: root.manager.current = 'random_encounter'
+		Button:
+			text: 'Creatures'
+		Button:
+			text: 'Gems'
+			on_press: root.manager.current = 'gem'
+		Button:
+			text: 'Jewelry'
+			on_press: root.manager.current = 'jewelry'
+		Button:
+			text: 'Treasure'
+			on_press: root.manager.current = 'treasure'
+        Button:
+            text: 'Combat'
+            on_press: root.manager.current = 'combat'
+
+<EncounterData>:
+	name: 'encounter_data'
+	cols: 1
+	spacing: 1
+	size_hint_y: None
+	height: self.minimum_height
+<RandomEncounterScreen>:
+	name: 'random_encounter'
+	day_count: day_count_text
+	encounter_data: encounter_data_view
+	BoxLayout:
+		orientation: 'vertical'
+		BoxLayout:
+			size_hint_y: 0.2
+			BoxLayout:
+				Spinner:
+					text: 'Temperate'
+					values: ('Cold','Temperate','Tropical')
+					on_text: root.climate = self.text
+				Spinner:
+					text: 'Wilderness'
+					values: ('Wilderness','Sparsely Civilized','Densely Civilized')
+					on_text: root.updatePopulation(self.text)
+				Spinner:
+					text: 'Plains'
+					values: ('Plains','Scrub','Hills','Mountains','Forest','Swamp','Desert')
+					on_text: root.terrain = self.text
+			Button:
+				text: 'Menu'
+				size_hint_x: 0.15
+				on_press: root.manager.current = 'menu'
+		BoxLayout:
+			size_hint_y: 0.2
+			Label:
+				text: 'Days in region: '
+			NumericInput:
+				id: day_count_text
+				multiline: 'False'
+			Button:
+				text: 'Roll Encounters'
+				on_press: root.rollEncounters()
+		EncounterDisplay:
+			name: 'encounter_display'
+			cols: 1
+			EncounterData:
+				id:encounter_data_view
+
+<GemData>:
+	name: 'gem_data'
+	cols: 1
+	spacing: 1
+	size_hint_y: None
+	height: self.minimum_height
+
+<GemScreen>:
+	name: 'gem'
+	gem_data: gem_data_view
+	gem_count: gem_count_text
+	gem_value: gem_value_text
+
+	BoxLayout:
+		orientation: 'vertical'
+
+		BoxLayout:
+			size_hint_x: 1
+			size_hint_y: 0.16
+            padding:'15sp'
+
+			Label:
+				text: 'Number of gems: '
+                font_size:'14sp'
+                size_hint_y:0.5
+				size_hint_x:0.5
+			NumericInput:
+				id: gem_count_text
+				name: 'gem_text_input'
+                font_size:'12sp'
+				multiline: False
+				size_hint_x:0.5
+				size_hint_y:0.8
+			Button:
+				name: 'gem_roll'
+				text: 'Roll gems'
+                size_hint_x:0.3
+                size_hint_y:0.8
+                font_size:'14sp'
+                on_press: root.requestRoll()
+            Button:
+				height: '10sp'
+				text: 'Menu'
+				size_hint_x: 0.15
+				on_press:root.manager.current = 'menu'
+        Label:
+            id: gem_value_text
+            font_size:'14sp'
+            text: 'Total value: 0 g.p.'
+            size_hint_y: 0.1
+
+		GemDisplay:
+			name: 'gem_display'
+			GemData:
+				id: gem_data_view
+
+<JewelryData>:
+	name: 'jewelry_data'
+	cols: 1
+	spacing: 1
+	size_hint_y: None
+	height: self.minimum_height
+<JewelryScreen>:
+	name: 'jewelry'
+	jewelry_data: jewelry_data_view
+	jewelry_count: jewelry_count_text
+	jewelry_value: jewelry_value_text
+
+	BoxLayout:
+		orientation: 'vertical'
+
+		BoxLayout:
+			size_hint_x: 1
+			size_hint_y: 0.16
+            padding:'15sp'
+
+			Label:
+				text: 'Number of jewelry: '
+                font_size:'14sp'
+				size_hint_x:0.5
+                size_hint_y:0.5
+			NumericInput:
+				id: jewelry_count_text
+				size_hint_x:0.4
+				size_hint_y:0.8
+				name: 'jewelry_text_input'
+                font_size:'12sp'
+				multiline: False
+			Button:
+				name: 'jewelry_roll'
+				text: 'Roll jewelry'
+                size_hint_x:0.5
+                size_hint_y:0.8
+                font_size:'14sp'
+				on_press: root.requestRoll()
+            Button:
+                height: '10sp'
+                text: 'Menu'
+				size_hint_x:0.2
+                on_press:root.manager.current = 'menu'
+        Label:
+            id: jewelry_value_text
+            font_size:'14sp'
+            text: 'Total value: 0 g.p.'
+            size_hint_y: 0.1
+
+		JewelryDisplay:
+			name: 'jewelry_display'
+			JewelryData:
+				id: jewelry_data_view
+
+<TreasureData>:
+	name: 'treasure_data'
+	cols: 1
+	spacing: 1
+	size_hint_y: None
+	height: self.minimum_height
+<TreasureScreen>:
+	name: 'treasure'
+	treasure_type: treasure_type_text
+	treasure_data: treasure_data_view
+	BoxLayout:
+		orientation: 'vertical'
+		BoxLayout:
+			size_hint_y: 0.2
+			Label:
+				text: 'Treasure Type/s: '
+				size_hint_x:0.7
+			AlphaInput:
+				id: treasure_type_text
+			Button:
+				size_hint_x:0.7
+				text:'    Roll\nTreasure'
+				on_press: root.requestRoll()
+			Button:
+				size_hint_x:0.2
+				text: 'Menu'
+				on_press: root.manager.current = 'menu'
+		ScrollView:
+			TreasureData:
+				id: treasure_data_view
+
+<CombatScreen>:
+    name: 'combat'
+    BoxLayout:
+        Button:
+            text: 'Menu'
+            on_press: root.manager.current = 'menu'
+
+

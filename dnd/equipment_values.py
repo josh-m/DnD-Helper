@@ -1,0 +1,1 @@
+armor_value = {'leather':1000,'padded':800}
