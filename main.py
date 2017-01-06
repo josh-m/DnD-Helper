@@ -10,6 +10,7 @@ from ui.gem import GemScreen
 from ui.jewelry import JewelryScreen
 from ui.treasure import TreasureScreen
 from ui.combat import CombatScreen
+from ui.pc_creator import PlayerCharacterCreatorScreen
 from ui.text_input import AlphaInput, NumericInput
     
 class DmApp(App):
@@ -22,6 +23,7 @@ class DmApp(App):
         self.sm.add_widget(JewelryScreen())
         self.sm.add_widget(TreasureScreen())
         self.sm.add_widget(CombatScreen())
+        self.sm.add_widget(PlayerCharacterCreatorScreen())
              
         return self.sm
 

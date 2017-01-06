@@ -25,6 +25,9 @@
         Button:
             text: 'Combat'
             on_press: root.manager.current = 'combat'
+        Button:
+            text: 'Create Player Character'
+            on_press: root.manager.current = 'pc_creator'
 
 <EncounterData>:
 	name: 'encounter_data'
@@ -221,5 +224,148 @@
         Button:
             text: 'Menu'
             on_press: root.manager.current = 'menu'
+
+<PlayerCharacterCreatorScreen>:
+    name: 'pc_creator'
+    score_set1: score_set1_text
+    score_set2: score_set2_text
+    score_set3: score_set3_text
+
+    str_select: str_spinner
+    int_select: int_spinner
+    wis_select: wis_spinner
+    dex_select: dex_spinner
+    con_select: con_spinner
+    chr_select: chr_spinner
+    com_select: com_spinner
+
+    dwarf: dwarf_button
+    elf: elf_button
+    gnome: gnome_button
+    halfling: halfling_button
+    halfelf: halfelf_button
+    halforc: halforc_button
+
+    BoxLayout:
+        orientation: 'vertical'
+        BoxLayout:
+            size_hint_y:0.2
+            Label:
+                text: 'PC Creator'
+            Button:
+                text: 'Menu'
+                on_press: root.manager.current = 'menu'
+        BoxLayout:
+            BoxLayout:
+                orientation: 'vertical'
+                Button:
+                    id: score_set1_text
+                    text: 'Score Set 1'
+                    on_release: root.selectScoreSet(self)
+                Button:
+                    id: score_set2_text
+                    text: 'Score Set 2'
+                    on_release: root.selectScoreSet(self)
+                Button:
+                    id: score_set3_text
+                    text: 'Score Set 3'
+                    on_release: root.selectScoreSet(self)
+            Button:
+                text: 'Reroll Scores'
+                on_press: self.text = 'Cheater!'
+                on_release: self.text = 'Reroll Scores'
+                on_release: root.populateScoreSets()
+                on_release: root.highlightScoreSet(None)
+        BoxLayout:
+            orientation: 'vertical'
+            BoxLayout:
+                Label: 
+                    text: 'Strength'
+                Spinner:
+                    id: str_spinner
+                    on_text: root.updateSpinners(self)
+                    on_text: root.checkDwarf()
+                    on_text: root.checkGnome()
+                    on_text: root.checkHalfling()
+                    on_text: root.checkHalfOrc()
+            BoxLayout:
+                Label:
+                    text: 'Intelligence'
+                Spinner:
+                    id: int_spinner
+                    on_text: root.updateSpinners(self)
+                    on_text: root.checkElf()
+                    on_text: root.checkGnome()
+                    on_text: root.checkHalfElf()
+            BoxLayout:
+                Label: 
+                    text: 'Wisdom'
+                Spinner:
+                    id: wis_spinner
+                    on_text: root.updateSpinners(self)
+            BoxLayout:
+                Label:
+                    text: 'Dexterity'
+                Spinner:
+                    id: dex_spinner
+                    on_text: root.updateSpinners(self)
+                    on_text: root.checkElf()
+                    on_text: root.checkHalfElf()
+            BoxLayout:
+                Label: 
+                    text: 'Constitution'
+                Spinner:
+                    id: con_spinner
+                    on_text: root.updateSpinners(self)
+                    on_text: root.checkDwarf()
+                    on_text: root.checkElf()
+                    on_text: root.checkGnome()
+                    on_text: root.checkHalfling()
+                    on_text: root.checkHalfElf()
+            BoxLayout:
+                Label: 
+                    text: 'Charisma'
+                Spinner:
+                    id: chr_spinner
+                    on_text: root.updateSpinners(self)
+                    on_text: root.checkDwarf()
+                    on_text: root.checkElf()
+                    on_text: root.checkHalfOrc()
+            BoxLayout:
+                Label: 
+                    text: 'Comeliness'
+                Spinner:
+                    id: com_spinner
+                    on_text: root.updateSpinners(self)
+        BoxLayout:
+            Label:
+                text: 'Race'
+            Button:
+                text: 'Human'
+            Button:
+                id: dwarf_button
+                text: 'Dwarf'
+                disabled: True
+            Button:
+                id: elf_button
+                text: 'Elf'
+                disabled: True
+            Button:
+                id: gnome_button
+                text: 'Gnome'
+                disabled: True
+            Button:
+                id: halfling_button
+                text: 'Halfling'
+                disabled: True
+            Button:
+                id: halfelf_button
+                text: 'Half-Elf'
+                disabled: True
+            Button:
+                id: halforc_button
+                text: 'Half-Orc'
+                disabled: True
+    
 
 

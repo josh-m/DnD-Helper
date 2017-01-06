@@ -48,16 +48,23 @@ class PlayerChar():
         self.age = age
         self.weight = 0
 
+
+def rollScoreSet():
+    ability_set = [0] * 7
+    for j in range(7):
+        stat = roll(6,4,drop_low=True)
+        ability_set[j] = stat
+    ability_set = sorted(ability_set, reverse=True)
+
+    return ability_set
+
+    
+
 #Roll scores, allow user to select a set
 def determineAbilityScores(auto=False):
     sets = [None] * 3
     for i in range(3):
-        ability_set = [0] * 6
-        for j in range(6):
-            stat = roll(6,4,drop_low=True)
-            ability_set[j] = stat
-        ability_set = sorted(ability_set, reverse=True)
-        sets[i] = ability_set
+        sets[i] = rollScoreSet()
 
     #For skipping/debug
     if auto:
@@ -109,8 +116,7 @@ def assignAbilityScores(scores, auto=False):
 
     return abilities
 
-#User selects a race, taking into account racial attribute minimums
-def chooseRace(abils):
+def filterRaceOptionsForAbils(abils):
     races = {'Human','Dwarf','Elf','Gnome',
         'Halfling','Half-Elf','Half-Orc'}
 
@@ -165,6 +171,12 @@ def chooseRace(abils):
 
     #Convert races to sorted list
     races = sorted(races)
+
+    return races
+
+#User selects a race, taking into account racial attribute minimums
+def chooseRace(abils):
+    races = filterRaceOptionsForAbils(abils)
     print(races)
 
     options = OrderedDict()
