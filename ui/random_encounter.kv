@@ -1,0 +1,48 @@
+#:kivy 1.9.1
+
+<EncounterData>:
+	name: 'encounter_data'
+	cols: 1
+	spacing: 1
+	size_hint_y: None
+	height: self.minimum_height
+<RandomEncounterScreen>:
+	name: 'random_encounter'
+	day_count: day_count_text
+	encounter_data: encounter_data_view
+	BoxLayout:
+		orientation: 'vertical'
+		BoxLayout:
+			size_hint_y: 0.2
+			BoxLayout:
+				Spinner:
+					text: 'Temperate'
+					values: ('Cold','Temperate','Tropical')
+					on_text: root.climate = self.text
+				Spinner:
+					text: 'Wilderness'
+					values: ('Wilderness','Sparsely Civilized','Densely Civilized')
+					on_text: root.updatePopulation(self.text)
+				Spinner:
+					text: 'Plains'
+					values: ('Plains','Scrub','Hills','Mountains','Forest','Swamp','Desert')
+					on_text: root.terrain = self.text
+			Button:
+				text: 'Menu'
+				size_hint_x: 0.15
+				on_press: root.manager.current = 'menu'
+		BoxLayout:
+			size_hint_y: 0.2
+			Label:
+				text: 'Days in region: '
+			NumericInput:
+				id: day_count_text
+				multiline: 'False'
+			Button:
+				text: 'Roll Encounters'
+				on_press: root.rollEncounters()
+		EncounterDisplay:
+			name: 'encounter_display'
+			cols: 1
+			EncounterData:
+				id:encounter_data_view

@@ -12,6 +12,9 @@ from ui.treasure import TreasureScreen
 from ui.combat import CombatScreen
 from ui.pc_creator import PlayerCharacterCreatorScreen
 from ui.text_input import AlphaInput, NumericInput
+
+from kivy.lang import Builder
+
     
 class DmApp(App):
 
@@ -28,5 +31,9 @@ class DmApp(App):
         return self.sm
 
 if __name__ == '__main__':
+    Builder.load_file('./ui/gem.kv')
+    Builder.load_file('./ui/jewelry.kv')
+    Builder.load_file('./ui/treasure.kv')
+    Builder.load_file('./ui/random_encounter.kv')
     DmApp().run()
     

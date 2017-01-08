@@ -1,0 +1,56 @@
+#:kivy 1.9.1
+
+<JewelryData>:
+	name: 'jewelry_data'
+	cols: 1
+	spacing: 1
+	size_hint_y: None
+	height: self.minimum_height
+<JewelryScreen>:
+	name: 'jewelry'
+	jewelry_data: jewelry_data_view
+	jewelry_count: jewelry_count_text
+	jewelry_value: jewelry_value_text
+
+	BoxLayout:
+		orientation: 'vertical'
+
+		BoxLayout:
+			size_hint_x: 1
+			size_hint_y: 0.16
+            padding:'15sp'
+
+			Label:
+				text: 'Number of jewelry: '
+                font_size:'14sp'
+				size_hint_x:0.5
+                size_hint_y:0.5
+			NumericInput:
+				id: jewelry_count_text
+				size_hint_x:0.4
+				size_hint_y:0.8
+				name: 'jewelry_text_input'
+                font_size:'12sp'
+				multiline: False
+			Button:
+				name: 'jewelry_roll'
+				text: 'Roll jewelry'
+                size_hint_x:0.5
+                size_hint_y:0.8
+                font_size:'14sp'
+				on_press: root.requestRoll()
+            Button:
+                height: '10sp'
+                text: 'Menu'
+				size_hint_x:0.2
+                on_press:root.manager.current = 'menu'
+        Label:
+            id: jewelry_value_text
+            font_size:'14sp'
+            text: 'Total value: 0 g.p.'
+            size_hint_y: 0.1
+
+		JewelryDisplay:
+			name: 'jewelry_display'
+			JewelryData:
+				id: jewelry_data_view

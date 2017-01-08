@@ -1,0 +1,57 @@
+#:kivy 1.9.1
+
+<GemData>:
+	name: 'gem_data'
+	cols: 1
+	spacing: 1
+	size_hint_y: None
+	height: self.minimum_height
+
+<GemScreen>:
+	name: 'gem'
+	gem_data: gem_data_view
+	gem_count: gem_count_text
+	gem_value: gem_value_text
+
+	BoxLayout:
+		orientation: 'vertical'
+
+		BoxLayout:
+			size_hint_x: 1
+			size_hint_y: 0.16
+            padding:'15sp'
+
+			Label:
+				text: 'Number of gems: '
+                font_size:'14sp'
+                size_hint_y:0.5
+				size_hint_x:0.5
+			NumericInput:
+				id: gem_count_text
+				name: 'gem_text_input'
+                font_size:'12sp'
+				multiline: False
+				size_hint_x:0.5
+				size_hint_y:0.8
+			Button:
+				name: 'gem_roll'
+				text: 'Roll gems'
+                size_hint_x:0.3
+                size_hint_y:0.8
+                font_size:'14sp'
+                on_press: root.requestRoll()
+            Button:
+				height: '10sp'
+				text: 'Menu'
+				size_hint_x: 0.15
+				on_press:root.manager.current = 'menu'
+        Label:
+            id: gem_value_text
+            font_size:'14sp'
+            text: 'Total value: 0 g.p.'
+            size_hint_y: 0.1
+
+		GemDisplay:
+			name: 'gem_display'
+			GemData:
+				id: gem_data_view

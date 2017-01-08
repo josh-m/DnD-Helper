@@ -48,6 +48,26 @@ class PlayerChar():
         self.age = age
         self.weight = 0
 
+def rollSocialClass():
+    r = roll(100)
+    social = ''
+    if r < 5:
+        return 'Lower Lower Class'
+    if r < 11:
+        return 'Middle Lower Class'
+    if r < 21:
+        return 'Upper Lower Class'
+    if r < 36:
+        return 'Lower Middle Class'
+    if r < 56:
+        return 'Middle Middle Class'
+    if r < 88:
+        return 'Upper Middle Class'
+    if r < 97:
+        return 'Lower Upper Class'
+    if r < 100:
+        return 'Middle Upepr Class'
+    return 'Upper Upper Class'
 
 def rollScoreSet():
     ability_set = [0] * 7
@@ -195,11 +215,10 @@ def chooseRace(abils):
 
 
 def adjustAbilitiesForRace(race,abils):
-#Note Charisma adjustments are not made here,
-#as original charisma needs to be retained for same race relations
+#original charisma rolled needs to be retained for same race relations
     if race == 'Dwarf':
         abils['CON'] += 1
-        abils['DEX'] -= 1
+        abils['CHR'] -= 1
     elif race == 'Elf':
         abils['DEX'] += 1
         abils['CON'] -= 1
@@ -338,7 +357,7 @@ def determineAge(race,p_class):
         return age
 
     cleric = ['Cleric','Druid','Monk']
-    fighter = ['Fighter','Paladin','Ranger']
+    fighter = ['Fighter','Paladin','Ranger','Cavalier','Barbarian']
     thief = ['Thief', 'Assassin']
     magic = ['Magic-User', 'Illusionist']
 
@@ -359,38 +378,38 @@ def determineAge(race,p_class):
         elif p_class in thief:
             age = 100 + roll(6,5)
     elif race == 'Gnome':
-        if p_class == 'Cleric':
+        if p_class in cleric:
             age = 300 + roll(12,3)
-        elif p_class == 'Fighter':
+        elif p_class in fighter:
             age = 60 + roll(4,5)
-        elif p_class == 'Magic-User':
+        elif p_class in magic:
             age = 100 + roll(12,2)
-        elif p_class == 'Thief':
+        elif p_class in thief:
             age = 80 + roll(4,5)
     elif race == 'Half-Elf':
-        if p_class == 'Cleric':
+        if p_class in cleric:
             age = 40 + roll(4,2)
-        elif p_class == 'Fighter':
+        elif p_class in fighter:
             age = 22 + roll(4,3)
-        elif p_class == 'Magic-User':
+        elif p_class in magic:
             age = 30 + roll(8,2)
-        elif p_class == 'Thief':
+        elif p_class in thief:
             age = 22 + roll(8,3)
     elif race == 'Halfling':
-        if p_class == 'Cleric':
+        if p_class in cleric or p_class in magic:
             age = 36 + roll(4,2)
-        elif p_class == 'Fighter':
+        elif p_class in fighter:
             age = 20 + roll(4,3)
-        elif p_class == 'Thief':
+        elif p_class in thief:
             age = 20 + roll(4,2)
     elif race == 'Half-Orc':
-        if p_class == 'Cleric':
+        if p_class in cleric:
             age = 20 + roll(4)
-        elif p_class == 'Fighter':
+        elif p_class in fighter:
             age = 13 + roll(4)
-        elif p_class == 'Magic-User':
+        elif p_class in magic:
             age = 15 + roll(8)
-        elif p_class == 'Thief':
+        elif p_class in thief:
             age = 20 + roll(4,2)
 
     return age
@@ -488,6 +507,8 @@ def determineAgeBracket(race, age):
             bracket = 'Old'
         else:
             bracket = 'Venerable'
+    
+    return bracket
 
 def adjustAbilitiesForAge(race,age,abils):
     bracket = determineAgeBracket(race,age)
