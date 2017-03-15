@@ -6,6 +6,7 @@ from kivy.uix.gridlayout import GridLayout
 from kivy.uix.scrollview import ScrollView
 from kivy.metrics import sp
 from colorlabel import ColorLabel
+from kivy.animation import Animation
 
 from dnd.random_encounters import rollMultipleDays
         
