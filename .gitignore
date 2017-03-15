@@ -1,1 +1,5 @@
+#Python compilation
 *.pyc
+*.pyo
+
+.\.kivy\logs
