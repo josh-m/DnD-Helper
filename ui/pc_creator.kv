@@ -1,0 +1,323 @@
+#:kivy 1.9.1
+
+<PlayerCharacterCreatorScreen>:
+    name: 'pc_creator'
+
+    score_set1: score_set1_text
+    score_set2: score_set2_text
+    score_set3: score_set3_text
+
+    social: social_label
+
+    str_text: str_label
+    int_text: int_label
+    wis_text: wis_label
+    dex_text: dex_label
+    con_text: con_label
+    chr_text: chr_label
+    com_text: com_label
+
+    str_: str_spinner
+    int_: int_spinner
+    wis_: wis_spinner
+    dex_: dex_spinner
+    con_: con_spinner
+    chr_: chr_spinner
+    com_: com_spinner
+
+    dwarf: dwarf_button
+    elf: elf_button
+    gnome: gnome_button
+    halfling: halfling_button
+    halfelf: halfelf_button
+    halforc: halforc_button
+
+    cleric: cleric_button
+    druid: druid_button
+    fighter: fighter_button
+    paladin: paladin_button
+    ranger: ranger_button
+    mu: mu_button
+    illusionist: illusionist_button
+    thief: thief_button
+    assassin: assassin_button
+    monk: monk_button
+    cavalier: cavalier_button
+    barbarian: barbarian_button
+
+    confirm: confirm_button
+
+    BoxLayout:
+        orientation: 'vertical'
+        BoxLayout:
+            size_hint_y:0.2
+            Label:
+                text: 'PC Creator'
+            Button:
+                text: 'Menu'
+                on_press: root.manager.current = 'menu'
+        BoxLayout:
+            BoxLayout:
+                orientation: 'vertical'
+                Button:
+                    id: score_set1_text
+                    text: 'Score Set 1'
+                    on_release: root.selectScoreSet(self)
+                Button:
+                    id: score_set2_text
+                    text: 'Score Set 2'
+                    on_release: root.selectScoreSet(self)
+                Button:
+                    id: score_set3_text
+                    text: 'Score Set 3'
+                    on_release: root.selectScoreSet(self)
+            Button:
+                text: 'Reroll Scores'
+                on_press: self.text = 'Cheater!'
+                on_release: self.text = 'Reroll Scores'
+                on_release: root.resetSpinners()                
+                on_release: root.populateScoreSets()
+                on_release: root.highlightScoreSet(None)
+                on_release: root.selectRace(None)
+                on_release: root.setSocialClass()
+                on_release: root.highlightClass(None)
+        BoxLayout:
+            size_hint_y: 0.15
+            Label:
+                text: 'Social Class:'
+            Label:
+                id: social_label
+        BoxLayout:
+            BoxLayout:
+                orientation: 'vertical'
+                BoxLayout:
+                    Label: 
+                        text: 'Strength'
+                    Label:
+                        id: str_label
+                        text: ''
+                    Spinner:
+                        id: str_spinner
+                        on_text: root.str_text.text = self.text
+                        on_text: root.updateSpinners(self)
+                        on_text: root.checkDwarf()
+                        on_text: root.checkGnome()
+                        on_text: root.checkHalfling()
+                        on_text: root.checkHalfOrc()
+                        on_text: root.checkFighter()
+                        on_text: root.checkPaladin()
+                        on_text: root.checkRanger()
+                        on_text: root.checkAssassin()
+                        on_text: root.checkMonk()
+                        on_text: root.checkCavalier()
+                        on_text: root.checkBarbarian()
+                        on_text: root.checkCompleteCharacter()
+                BoxLayout:
+                    Label:
+                        text: 'Intelligence'
+                    Label:
+                        id: int_label
+                    Spinner:
+                        id: int_spinner
+                        on_text: root.int_text.text = self.text
+                        on_text: root.updateSpinners(self)
+                        on_text: root.checkElf()
+                        on_text: root.checkGnome()
+                        on_text: root.checkHalfElf()
+                        on_text: root.checkPaladin()
+                        on_text: root.checkRanger()
+                        on_text: root.checkMagicUser()
+                        on_text: root.checkIllusionist()
+                        on_text: root.checkAssassin()
+                        on_text: root.checkCavalier()
+                        on_text: root.checkCompleteCharacter()
+                BoxLayout:
+                    Label: 
+                        text: 'Wisdom'
+                    Label:
+                        id: wis_label
+                    Spinner:
+                        id: wis_spinner
+                        on_text: root.wis_text.text = self.text
+                        on_text: root.updateSpinners(self)
+                        on_text: root.checkCleric()
+                        on_text: root.checkDruid()
+                        on_text: root.checkPaladin()
+                        on_text: root.checkRanger()
+                        on_text: root.checkMonk()
+                        on_text: root.checkCavalier()
+                        on_text: root.checkBarbarian()
+                        on_text: root.checkCompleteCharacter()
+                BoxLayout:
+                    Label:
+                        text: 'Dexterity'
+                    Label:
+                        id: dex_label
+                    Spinner:
+                        id: dex_spinner
+                        on_text: root.dex_text.text = self.text
+                        on_text: root.updateSpinners(self)
+                        on_text: root.checkElf()
+                        on_text: root.checkHalfElf()
+                        on_text: root.checkPaladin()
+                        on_text: root.checkMagicUser()
+                        on_text: root.checkIllusionist()
+                        on_text: root.checkThief()
+                        on_text: root.checkAssassin()
+                        on_text: root.checkMonk()
+                        on_text: root.checkCavalier()
+                        on_text: root.checkBarbarian()
+                        on_text: root.checkCompleteCharacter()
+                BoxLayout:
+                    Label: 
+                        text: 'Constitution'
+                    Label:
+                        id: con_label
+                    Spinner:
+                        id: con_spinner
+                        on_text: root.con_text.text = self.text
+                        on_text: root.updateSpinners(self)
+                        on_text: root.checkDwarf()
+                        on_text: root.checkElf()
+                        on_text: root.checkGnome()
+                        on_text: root.checkHalfling()
+                        on_text: root.checkHalfElf()
+                        on_text: root.checkFighter()
+                        on_text: root.checkPaladin()
+                        on_text: root.checkRanger()
+                        on_text: root.checkMonk()
+                        on_text: root.checkCavalier()
+                        on_text: root.checkBarbarian()
+                        on_text: root.checkCompleteCharacter()
+                BoxLayout:
+                    Label: 
+                        text: 'Charisma'
+                    Label:
+                        id: chr_label
+                    Spinner:
+                        id: chr_spinner
+                        on_text: root.chr_text.text = self.text
+                        on_text: root.updateSpinners(self)
+                        on_text: root.checkDwarf()
+                        on_text: root.checkElf()
+                        on_text: root.checkHalfOrc()
+                        on_text: root.checkDruid()
+                        on_text: root.checkPaladin()
+                        on_text: root.checkCompleteCharacter()
+                BoxLayout:
+                    Label: 
+                        text: 'Comeliness'
+                    Label:
+                        id: com_label
+                    Spinner:
+                        id: com_spinner
+                        on_text: root.com_text.text = self.text
+                        on_text: root.updateSpinners(self)
+                        on_text: root.checkCompleteCharacter()
+		    ScrollView:
+        BoxLayout:
+            Label:
+                text: 'Race'
+            Button:
+                text: 'Human'
+                on_release: root.selectRace(self)
+            Button:
+                id: dwarf_button
+                text: 'Dwarf'
+                disabled: True
+                on_release: root.selectRace(self)
+
+            Button:
+                id: elf_button
+                text: 'Elf'
+                disabled: True
+                on_release: root.selectRace(self)
+            Button:
+                id: gnome_button
+                text: 'Gnome'
+                disabled: True
+                on_release: root.selectRace(self)
+            Button:
+                id: halfling_button
+                text: 'Halfling'
+                disabled: True
+                on_release: root.selectRace(self)
+            Button:
+                id: halfelf_button
+                text: 'Half-Elf'
+                disabled: True
+                on_release: root.selectRace(self)
+            Button:
+                id: halforc_button
+                text: 'Half-Orc'
+                disabled: True
+                on_release: root.selectRace(self)
+        GridLayout:
+            cols: 7
+            Label:
+                text: 'Class'
+            Button:
+                id: cleric_button
+                text: 'Cleric'
+                disabled: True
+                on_release: root.selectClass(self)
+            Button:
+                id: druid_button
+                text: 'Druid'
+                disabled: True
+                on_release: root.selectClass(self)
+            Button:
+                id: fighter_button
+                text: 'Fighter'
+                disabled: True
+                on_release: root.selectClass(self)
+            Button:
+                id: paladin_button
+                text: 'Paladin'
+                disabled: True
+                on_release: root.selectClass(self)
+            Button:
+                id: ranger_button
+                text: 'Ranger'
+                disabled: True
+                on_release: root.selectClass(self)
+            Button:
+                id: mu_button
+                text: 'Magic-User'
+                disabled: True
+                on_release: root.selectClass(self)
+            Button:
+                id: illusionist_button
+                text: 'Illusionist'
+                disabled: True
+                on_release: root.selectClass(self)
+            Button:
+                id: thief_button
+                text: 'Thief'
+                disabled: True
+                on_release: root.selectClass(self)
+            Button:
+                id: assassin_button
+                text: 'Assassin'
+                disabled: True
+                on_release: root.selectClass(self)
+            Button:
+                id: monk_button
+                text: 'Monk'
+                disabled: True
+                on_release: root.selectClass(self)
+            Button:
+                id: cavalier_button
+                text: 'Cavalier'
+                disabled: True
+                on_release: root.selectClass(self)
+            Button:
+                id: barbarian_button
+                text: 'Barbarian'
+                disabled: True
+                on_release: root.selectClass(self)
+        Button:
+            id: confirm_button
+            text: 'Confirm Character'
+            on_release: root.confirmCharacter()
+            disabled: True

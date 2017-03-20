@@ -36,5 +36,6 @@ if __name__ == '__main__':
     Builder.load_file('./ui/jewelry.kv')
     Builder.load_file('./ui/treasure.kv')
     Builder.load_file('./ui/random_encounter.kv')
+    Builder.load_file('./ui/pc_creator.kv')
     DmApp().run()
     
